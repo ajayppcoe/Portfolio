@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ajaykumar Vijay Hapse — Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ─── CSS Variables ─── */
+    :root {
+      --bg:          #0d0f14;
+      --surface:     #13161e;
+      --surface2:    #1c2030;
+      --border:      #252a3a;
+      --accent:      #e8b45a;
+      --accent2:     #5a9ee8;
+      --accent3:     #e85a8a;
+      --text:        #e8e8f0;
+      --text-muted:  #7a7f9a;
+      --text-dim:    #4a4f6a;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+      --font-mono:    'DM Mono', monospace;
+      --radius:       12px;
+      --glow-gold:    0 0 40px rgba(232, 180, 90, 0.15);
+      --glow-blue:    0 0 40px rgba(90, 158, 232, 0.15);
+    }
+
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── Animated Background ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 0%, rgba(90, 158, 232, 0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 100%, rgba(232, 180, 90, 0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(232, 90, 138, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Noise grain overlay ─── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ─── Page Wrapper ─── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 40px 100px;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 40px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      animation: fadeSlideDown 0.8s ease both;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    .header-left { display: flex; flex-direction: column; gap: 12px; }
+
+    .name-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .name {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 62px);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--text);
+      letter-spacing: -1px;
+    }
+
+    .name span {
+      display: block;
+      color: var(--accent);
+    }
+
+    .designation {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .designation b {
+      color: var(--accent2);
+      font-weight: 600;
+    }
+
+    /* ─── Contact Card ─── */
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 260px;
+      box-shadow: var(--glow-gold);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .contact-item .icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .icon-phone  { background: rgba(232,180,90,0.15);  color: var(--accent); }
+    .icon-email  { background: rgba(90,158,232,0.15);  color: var(--accent2); }
+    .icon-loc    { background: rgba(232,90,138,0.15);  color: var(--accent3); }
+
+    .contact-item a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-item a:hover { color: var(--text); }
+
+    /* ─── Main Grid ─── */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 60px;
+      margin-top: 50px;
+    }
+
+    /* ─── Section ─── */
+    .section { margin-bottom: 50px; animation: fadeSlideUp 0.7s ease both; }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 20px;
+      border-radius: 4px;
+      background: var(--accent);
+    }
+
+    .section-label h2 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── Summary ─── */
+    .summary-text {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.8;
+      border-left: 2px solid var(--border);
+      padding-left: 20px;
+      font-weight: 300;
+    }
+
+    .summary-text strong { color: var(--accent); font-weight: 600; }
+
+    /* ─── Timeline / Experience ─── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 28px;
+      padding-bottom: 36px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 10px;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--border) 80%, transparent);
+    }
+
+    .timeline-item:last-child::before { display: none; }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: 3px;
+      top: 8px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .timeline-item:last-child::after { background: var(--accent2); box-shadow: 0 0 10px var(--accent2); }
+
+    .job-header { margin-bottom: 6px; }
+
+    .job-title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .job-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+      align-items: center;
+    }
+
+    .job-org {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent2);
+      letter-spacing: 0.05em;
+    }
+
+    .job-period {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+
+    .current-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      background: rgba(232,180,90,0.15);
+      color: var(--accent);
+      border: 1px solid rgba(232,180,90,0.3);
+      padding: 2px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.08em;
+    }
+
+    .job-bullets {
+      list-style: none;
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .job-bullets li {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .job-bullets li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    /* ─── Sidebar ─── */
+    .sidebar { display: flex; flex-direction: column; gap: 0; }
+
+    /* ─── Skill Cards ─── */
+    .skill-block { margin-bottom: 40px; }
+
+    .skill-category {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      transition: all 0.25s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tag::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(232,180,90,0.08), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 16px rgba(232,180,90,0.1);
+      transform: translateY(-2px);
+    }
+
+    .tag:hover::before { opacity: 1; }
+
+    .tag.blue:hover  { border-color: var(--accent2); color: var(--accent2); box-shadow: 0 0 16px rgba(90,158,232,0.1); }
+    .tag.pink:hover  { border-color: var(--accent3); color: var(--accent3); box-shadow: 0 0 16px rgba(232,90,138,0.1); }
+
+    /* ─── Education Card ─── */
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .edu-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2));
+    }
+
+    .edu-card:hover {
+      border-color: rgba(232,180,90,0.3);
+      box-shadow: var(--glow-gold);
+    }
+
+    .edu-degree {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+
+    .edu-field {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .edu-uni {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ─── Highlight Pills ─── */
+    .highlight-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: border-color 0.25s, transform 0.2s;
+    }
+
+    .highlight-item:hover {
+      border-color: rgba(232,180,90,0.25);
+      transform: translateX(4px);
+    }
+
+    .hi-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── Stats Row ─── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .stat-cell {
+      background: var(--surface);
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ─── Footer ─── */
+    .resume-footer {
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      animation: fadeSlideUp 1s ease 0.5s both;
+    }
+
+    .footer-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+      margin-right: 6px;
+      animation: pulse 2s infinite;
+    }
+
+    /* ─── Decorative Corner ─── */
+    .deco-corner {
+      position: fixed;
+      top: 0; right: 0;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle at top right, rgba(232,180,90,0.06), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Print Button ─── */
+    .print-btn {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      padding: 12px 22px;
+      background: var(--accent);
+      color: #0d0f14;
+      border: none;
+      border-radius: 40px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(232,180,90,0.35);
+      transition: all 0.25s;
+      z-index: 100;
+    }
+
+    .print-btn:hover {
+      background: #f0c670;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(232,180,90,0.5);
+    }
+
+    /* ─── Animations ─── */
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    .section:nth-child(1) { animation-delay: 0.1s; }
+    .section:nth-child(2) { animation-delay: 0.2s; }
+    .section:nth-child(3) { animation-delay: 0.3s; }
+    .sidebar .section:nth-child(1) { animation-delay: 0.15s; }
+    .sidebar .section:nth-child(2) { animation-delay: 0.25s; }
+    .sidebar .section:nth-child(3) { animation-delay: 0.35s; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 780px) {
+      .page { padding: 36px 20px 80px; }
+      .header { grid-template-columns: 1fr; gap: 24px; }
+      .main-grid { grid-template-columns: 1fr; gap: 0; }
+      .contact-card { min-width: unset; }
+      .stats-row { grid-template-columns: repeat(3,1fr); }
+    }
+
+    /* ─── Print ─── */
+    @media print {
+      body { background: #fff; color: #111; }
+      body::before, body::after, .deco-corner, .print-btn { display: none; }
+      :root {
+        --bg: #fff; --surface: #f8f8f8; --surface2: #f0f0f0;
+        --border: #ddd; --text: #111; --text-muted: #444; --text-dim: #888;
+      }
+      .page { padding: 30px; max-width: 100%; }
+      .main-grid { gap: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="deco-corner"></div>
+
+<div class="page">
+
+  <!-- ╔══ HEADER ══╗ -->
+  <header class="header">
+    <div class="header-left">
+      <span class="name-label">// Resume</span>
+      <h1 class="name">
+        Ajaykumar<br>
+        <span>Vijay Hapse</span>
+      </h1>
+      <p class="designation">
+        <b>Head of Department – AI &amp; ML</b> &nbsp;·&nbsp; Lecturer &nbsp;·&nbsp; IT Professional
+      </p>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-item">
+        <span class="icon icon-phone">📞</span>
+        <a href="tel:+919860200108">+91 98602 00108</a>
+      </div>
+      <div class="contact-item">
+        <span class="icon icon-email">✉</span>
+        <a href="mailto:avhapse@gmail.com">avhapse@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="icon icon-loc">📍</span>
+        <span>Karvenagar, Pune</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ╔══ STATS ROW ══╗ -->
+  <div class="stats-row" style="margin-top: 40px;">
+    <div class="stat-cell">
+      <span class="stat-num">10+</span>
+      <span class="stat-label">Years Exp.</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">8</span>
+      <span class="stat-label">Yrs Teaching</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Countries</span>
+    </div>
+  </div>
+
+  <!-- ╔══ MAIN GRID ══╗ -->
+  <div class="main-grid">
+
+    <!-- ── LEFT COLUMN ── -->
+    <main>
+
+      <!-- Summary -->
+      <section class="section">
+        <div class="section-label"><h2>About</h2></div>
+        <p class="summary-text">
+          A <strong>multidisciplinary professional</strong> combining deep academic roots in Information Technology with real-world experience across education, social development, and entrepreneurship. Currently <strong>leading the AI &amp; ML Department</strong> at Shri Siddhivinayak Polytechnic, driven by a passion for technology and a uniquely diverse worldview — shaped by bicycle journeys across Maharashtra, Thailand, and Cambodia, and meaningful work with communities worldwide.
+        </p>
+      </section>
+
+      <!-- Experience -->
+      <section class="section">
+        <div class="section-label"><h2>Experience</h2></div>
+        <div class="timeline">
+
+          <!-- Job 1 -->
+          <div class="timeline-item">
+            <div class="job-header">
+              <div class="job-title">Head of Department — AI &amp; ML</div>
+              <div class="job-meta">
+                <span class="job-org">Shri Siddhivinayak Polytechnic, Siddhatek</span>
+                <span class="job-period">July 2025 – Present</span>
+                <span class="current-badge">● Current</span>
+              </div>
+            </div>
+            <ul class="job-bullets">
+              <li>Leading the newly established Artificial Intelligence &amp; Machine Learning department</li>
+              <li>Designing curriculum and overseeing faculty for AI/ML programs</li>
+              <li>Mentoring students on emerging technologies and industry projects</li>
+            </ul>
+          </div>
+
+          <!-- Job 2 -->
+          <div class="timeline-item">
+            <div class="job-header">
+              <div class="job-title">Lecturer — Information Technology</div>
+              <div class="job-meta">
+                <span class="job-org">Shri Siddhivinayak Polytechnic, Siddhatek</span>
+                <span class="job-period">June 2018 – June 2025</span>
+              </div>
+            </div>
+            <ul class="job-bullets">
+              <li>Taught core IT subjects for 8 years including programming, networking, and web technologies</li>
+              <li>Conducted practical labs and guided students through industry-oriented projects</li>
+              <li>Actively contributed to academic administration and institutional development</li>
+            </ul>
+          </div>
+
+          <!-- Job 3 -->
+          <div class="timeline-item">
+            <div class="job-header">
+              <div class="job-title">Volunteer — Field Operations &amp; Projects</div>
+              <div class="job-meta">
+                <span class="job-org">Maharashtra-based Social NGO</span>
+                <span class="job-period">June 2016 – June 2018</span>
+              </div>
+            </div>
+            <ul class="job-bullets">
+              <li>Managed official documentation and administrative operations</li>
+              <li>Organized socio-cultural programs featuring globally renowned personalities</li>
+              <li>Led bicycle expeditions across Maharashtra and international tours in Thailand &amp; Cambodia</li>
+              <li>Handled media relations and social media platforms, amplifying the NGO's digital presence</li>
+              <li>Worked on social international projects, fostering cross-border collaboration</li>
+            </ul>
+          </div>
+
+          <!-- Job 4 -->
+          <div class="timeline-item">
+            <div class="job-header">
+              <div class="job-title">Software Developer &amp; Entrepreneur</div>
+              <div class="job-meta">
+                <span class="job-org">Independent / Self-employed</span>
+                <span class="job-period">2015 – 2016</span>
+              </div>
+            </div>
+            <ul class="job-bullets">
+              <li>Built and sold software products, handling end-to-end development and client relations</li>
+              <li>Gained hands-on experience in product development and business operations</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ── RIGHT SIDEBAR ── -->
+    <aside class="sidebar">
+
+      <!-- Education -->
+      <section class="section">
+        <div class="section-label"><h2>Education</h2></div>
+        <div class="edu-card">
+          <div class="edu-degree">Bachelor of Engineering</div>
+          <div class="edu-field">Information Technology</div>
+          <div class="edu-uni">🎓 University of Pune</div>
+        </div>
+      </section>
+
+      <!-- Programming Skills -->
+      <section class="section">
+        <div class="section-label"><h2>Skills</h2></div>
+
+        <div class="skill-block">
+          <div class="skill-category">// Programming</div>
+          <div class="skill-tags">
+            <span class="tag">C</span>
+            <span class="tag">C++</span>
+            <span class="tag">Java</span>
+            <span class="tag">SQL</span>
+          </div>
+        </div>
+
+        <div class="skill-block">
+          <div class="skill-category">// Web Technologies</div>
+          <div class="skill-tags">
+            <span class="tag blue">HTML5</span>
+            <span class="tag blue">CSS3</span>
+          </div>
+        </div>
+
+        <div class="skill-block">
+          <div class="skill-category">// Core Strengths</div>
+          <div class="skill-tags">
+            <span class="tag pink">Technical Troubleshooting</span>
+            <span class="tag pink">AI / ML</span>
+            <span class="tag pink">Curriculum Design</span>
+            <span class="tag pink">Media Handling</span>
+            <span class="tag pink">Event Management</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Highlights -->
+      <section class="section">
+        <div class="section-label"><h2>Highlights</h2></div>
+        <div class="highlight-list">
+          <div class="highlight-item">
+            <span class="hi-icon">🚲</span>
+            <span>Bicycle tours across Maharashtra &amp; international expeditions through Thailand and Cambodia</span>
+          </div>
+          <div class="highlight-item">
+            <span class="hi-icon">🌐</span>
+            <span>Organized events featuring globally recognized personalities from worldwide</span>
+          </div>
+          <div class="highlight-item">
+            <span class="hi-icon">📡</span>
+            <span>Advanced internet-based technical problem solving — a rare and exceptional skill</span>
+          </div>
+          <div class="highlight-item">
+            <span class="hi-icon">🤝</span>
+            <span>Contributed to international social projects, reflecting a global collaborative mindset</span>
+          </div>
+        </div>
+      </section>
+
+    </aside>
+  </div><!-- /main-grid -->
+
+  <!-- ╔══ FOOTER ══╗ -->
+  <footer class="resume-footer">
+    <span><span class="footer-dot"></span>Ajaykumar Vijay Hapse &nbsp;·&nbsp; Pune, Maharashtra</span>
+    <span>avhapse@gmail.com</span>
+  </footer>
+
+</div><!-- /page -->
+
+<!-- Print Button -->
+<button class="print-btn" onclick="window.print()">⎙ &nbsp;Print / PDF</button>
+
+</body>
+</html>
